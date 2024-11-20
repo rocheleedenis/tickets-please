@@ -2,12 +2,14 @@
 
 namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\UserResource;
+use App\Http\Resources\Api\Traits\ShouldIncludeData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TicketResource extends JsonResource
 {
+    use ShouldIncludeData;
+
     /**
      * Transform the resource into an array.
      *
@@ -39,9 +41,12 @@ class TicketResource extends JsonResource
                 ],
             ],
 
-            'includes' => [
-                'author' => new UserResource($this->user),
-            ],
+            'includes' => $this->when(
+                $this->shouldInclude('author'),
+                [
+                    'author' => new UserResource($this->user),
+                ]
+            ),
 
             'links' => [
                 'self' => route('v1.tickets.show', ['ticket' => $this->id]),

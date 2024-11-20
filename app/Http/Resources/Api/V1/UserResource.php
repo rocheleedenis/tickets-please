@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\Traits\ShouldIncludeData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+    use ShouldIncludeData;
+
     /**
      * Transform the resource into an array.
      *
@@ -26,6 +29,13 @@ class UserResource extends JsonResource
                     'updatedAt' => $this->updated_at,
                 ]),
             ],
+
+            'include' => $this->when(
+                $this->shouldInclude('tickets'),
+                [
+                    'tickets' => TicketResource::collection($this->tickets),
+                ]
+            ),
         ];
     }
 }
