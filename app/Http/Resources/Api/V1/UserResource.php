@@ -36,6 +36,10 @@ class UserResource extends JsonResource
                     'tickets' => TicketResource::collection($this->tickets),
                 ]
             ),
+
+            'links' => [
+                'self' => route('v1.users.show', ['user' => $this->id]),
+            ],
         ];
     }
 }
