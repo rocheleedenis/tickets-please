@@ -33,10 +33,10 @@ class TicketResource extends JsonResource
 
             'relationships' => [
                 'author' => [
-                    'type' => 'user',
+                    'type' => 'author',
                     'id' => $this->user_id,
                     'links' => [
-                        'self' => route('v1.users.show', ['user' => $this->user_id]),
+                        'self' => route('v1.authors.show', ['author' => $this->user_id]),
                     ],
                 ],
             ],
@@ -44,7 +44,7 @@ class TicketResource extends JsonResource
             'includes' => $this->when(
                 $this->shouldInclude('author'),
                 [
-                    'author' => new UserResource($this->user),
+                    'author' => new AuthorResource($this->author),
                 ]
             ),
 

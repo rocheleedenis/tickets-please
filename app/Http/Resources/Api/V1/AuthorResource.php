@@ -6,7 +6,7 @@ use App\Http\Resources\Api\Traits\ShouldIncludeData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class AuthorResource extends JsonResource
 {
     use ShouldIncludeData;
 
@@ -18,12 +18,12 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => 'user',
+            'type' => 'author',
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
                 'email' => $this->email,
-                $this->mergeWhen($request->routeIs('v1.users.*'), [
+                $this->mergeWhen($request->routeIs('v1.authors.*'), [
                     'emailVerifiedAt' => $this->email_verified_at,
                     'createdAt' => $this->created_at,
                     'updatedAt' => $this->updated_at,
@@ -38,7 +38,7 @@ class UserResource extends JsonResource
             ),
 
             'links' => [
-                'self' => route('v1.users.show', ['user' => $this->id]),
+                'self' => route('v1.authors.show', ['author' => $this->id]),
             ],
         ];
     }
