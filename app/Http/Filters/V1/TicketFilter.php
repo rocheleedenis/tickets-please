@@ -6,6 +6,12 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class TicketFilter extends QueryFilter
 {
+    protected array $sortables = [
+        'title',
+        'status',
+        'created_at',
+    ];
+
     public function status(string $value): Builder
     {
         return $this->builder->whereIn('status', explode(',', $value));
