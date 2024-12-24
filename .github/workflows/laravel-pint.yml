@@ -26,13 +26,13 @@ jobs:
       - name: Install dependencies
         run: composer global require laravel/pint
 
-      - name: Run Pint
+      - name: Run Laravel Pint
         run: pint
 
-      - name: Back to the repo
+      - name: Commit changes
         run: |
-          git config --global user.email "rochele.edenis@gmail.com"
-          git config --global user.name "Rochele Edenis"
+          git config --global user.email "github-actions[bot]"
+          git config --global user.name "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Laravel Pint"
+          git commit -m "lint: apply Laravel Pint fixes"
           git push
