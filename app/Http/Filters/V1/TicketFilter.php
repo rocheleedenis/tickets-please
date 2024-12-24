@@ -31,4 +31,3 @@ class TicketFilter extends QueryFilter
             : $this->builder->whereBetween('created_at', $dates);
     }
 }
-

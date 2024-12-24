@@ -10,7 +10,7 @@ trait ShouldIncludeData
     {
         $param = request()->get('include');
 
-        if (!$param) {
+        if (! $param) {
             return false;
         }
 
