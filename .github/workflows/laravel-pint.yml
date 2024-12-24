@@ -21,10 +21,15 @@ jobs:
           tools: composer:v2
 
       - name: Install dependencies
-        run: composer install
+        run: composer global require laravel/pint
 
       - name: Run Pint
-        run: ./vendor/bin/pint --test
+        run: pint
 
       - name: Back to the repo
-        run: echo "TODO"
+        run: |
+          git config --global user.email "rochele.edenis@gmail.com"
+          git config --global user.name "Rochele Edenis"
+          git add .
+          git commit -m "Laravel Pint"
+          git push
