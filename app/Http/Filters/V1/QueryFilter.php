@@ -9,11 +9,10 @@ use Illuminate\Support\Str;
 abstract class QueryFilter
 {
     protected Builder $builder;
+
     protected array $sortables = [];
 
-    public function __construct(protected Request $request)
-    {
-    }
+    public function __construct(protected Request $request) {}
 
     public function apply(Builder $builder): Builder
     {
@@ -40,7 +39,7 @@ abstract class QueryFilter
     {
         $attributes = explode(',', $value);
 
-        foreach($attributes as $attribute) {
+        foreach ($attributes as $attribute) {
             $direction = Str::startsWith($attribute, '-') ? 'desc' : 'asc';
             $column = Str::of($attribute)->remove('-')->snake()->value();
 
