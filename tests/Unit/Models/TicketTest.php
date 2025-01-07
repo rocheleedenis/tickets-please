@@ -23,7 +23,7 @@ it('checks scope filter', function () {
         });
 
     $builder = Ticket::query();
-    $result = (new Ticket)->scopeFilter($builder, $queryFilterMock);
+    $result = (new Ticket())->scopeFilter($builder, $queryFilterMock);
 
     expect($result)->toBe($builder);
 });
