@@ -15,7 +15,7 @@ class Ticket extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function scopeFilter(Builder $builder, QueryFilter $filters): Builder

@@ -25,4 +25,3 @@ class AuthorFilter extends QueryFilter
             : $this->builder->whereBetween('created_at', $dates);
     }
 }
-
