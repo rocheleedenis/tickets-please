@@ -24,6 +24,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           tools: composer:v2
 
       - name: Get Composer cache directory
@@ -35,6 +36,7 @@ jobs:
         with:
           key: composer-cache-${{ hashFiles('**/composer.lock') }}
           path: ${{ steps.composer-cache-dir.outputs.dir }}
+          # The restore-keys field provides a fallback mechanism to restore the cache if an exact match is not found. This can help speed up the build process even if the exact cache is not available.
           restore-keys: composer-cache-
 
       - name: Install dependencies
