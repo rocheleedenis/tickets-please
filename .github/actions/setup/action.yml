@@ -24,16 +24,16 @@ runs:
         - name: Cache extensions
             uses: actions/cache@v4
             with:
-            path: ${{ steps.extcache.outputs.dir }}
-            key: ${{ steps.extcache.outputs.key }}
-            restore-keys: ${{ steps.extcache.outputs.key }}
+                path: ${{ steps.extcache.outputs.dir }}
+                key: ${{ steps.extcache.outputs.key }}
+                restore-keys: ${{ steps.extcache.outputs.key }}
 
         - name: Setup PHP and Composer
             uses: shivammathur/setup-php@v2
             with:
-            php-version: ${{ inputs.php-version }}
-            extensions: ${{ inputs.php-extensions }}
-            tools: composer:v2
+                php-version: ${{ inputs.php-version }}
+                extensions: ${{ inputs.php-extensions }}
+                tools: composer:v2
 
         - name: Get Composer cache directory
             id: composer-cache-dir
@@ -43,7 +43,7 @@ runs:
         - name: Cache Composer dependencies
             uses: actions/cache@v4
             with:
-            key: composer-cache-${{ hashFiles('**/composer.lock') }}
-            path: ${{ steps.composer-cache-dir.outputs.dir }}
-            # The restore-keys field provides a fallback mechanism to restore the cache if an exact match is not found. This can help speed up the build process even if the exact cache is not available.
-            restore-keys: composer-cache-
+                key: composer-cache-${{ hashFiles('**/composer.lock') }}
+                path: ${{ steps.composer-cache-dir.outputs.dir }}
+                # The restore-keys field provides a fallback mechanism to restore the cache if an exact match is not found. This can help speed up the build process even if the exact cache is not available.
+                restore-keys: composer-cache-
