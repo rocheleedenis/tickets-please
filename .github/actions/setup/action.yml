@@ -9,7 +9,7 @@ inputs:
     php-extensions:
         description: "The PHP extensions you want to install"
         required: false
-        default: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+        default: "dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite"
 runs:
     using: composite
     steps:
@@ -38,6 +38,7 @@ runs:
         - name: Get Composer cache directory
             id: composer-cache-dir
             run: echo dir=$(composer config cache-files-dir) >> $GITHUB_OUTPUT
+            shell: bash
 
         - name: Cache Composer dependencies
             uses: actions/cache@v4
