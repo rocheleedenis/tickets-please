@@ -1,7 +1,6 @@
 name: Tests
 
-on:
-  pull_request
+on: pull_request
 
 jobs:
   run-tests:
@@ -17,47 +16,16 @@ jobs:
           MYSQL_DATABASE: tickets-please
 
     env:
-      PHP_VERSION: '8.3'
-      PHP_EXTENSIONS: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
       EXTENSIONS_CACHE_KEY: php-extensions-cache-v1
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup cache environment
-        id: extcache
-        uses: shivammathur/cache-extensions@v1
+      - name: Setup
+        uses: ./.github/actions/setup
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          key: ${{ env.EXTENSIONS_CACHE_KEY }}
-
-      - name: Cache extensions
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.extcache.outputs.dir }}
-          key: ${{ steps.extcache.outputs.key }}
-          restore-keys: ${{ steps.extcache.outputs.key }}
-
-      - name: Setup PHP and Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          tools: composer:v2
-
-      - name: Get Composer cache directory
-        id: composer-cache-dir
-        run: echo dir=$(composer config cache-files-dir) >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v4
-        with:
-          key: composer-cache-${{ hashFiles('**/composer.lock') }}
-          path: ${{ steps.composer-cache-dir.outputs.dir }}
-          # The restore-keys field provides a fallback mechanism to restore the cache if an exact match is not found. This can help speed up the build process even if the exact cache is not available.
-          restore-keys: composer-cache-
+          php-version: "8.3"
 
       - name: Install dependencies
         run: composer install --no-interaction -q
